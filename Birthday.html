@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday.exe</title>
+
+<style>
+body {
+  background: black;
+  color: #00ffcc;
+  font-family: monospace;
+  text-align: center;
+  padding: 50px;
+}
+
+#terminal {
+  border: 1px solid #00ffcc;
+  padding: 20px;
+  display: inline-block;
+  text-align: left;
+  min-width: 300px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #00ffcc;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎂 Birthday.exe</h1>
+
+<div id="terminal">
+  <p>> Click start to run birthday script...</p>
+</div>
+
+<button onclick="start()">▶ Run Program</button>
+
+<audio id="music" class="hidden" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3">
+</audio>
+
+<script>
+function typeLine(text, delay = 50) {
+  return new Promise(resolve => {
+    let i = 0;
+    let line = document.createElement("p");
+    document.getElementById("terminal").appendChild(line);
+
+    function typing() {
+      if (i < text.length) {
+        line.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, delay);
+      } else {
+        resolve();
+      }
+    }
+    typing();
+  });
+}
+
+async function start() {
+  document.querySelector("button").disabled = true;
+
+  await typeLine("> Initializing Birthday Script...");
+  await typeLine("> Loading Happiness Module ███████ 100%");
+  await typeLine("> Debugging Age... ✔ No errors found 😎");
+  await typeLine("> Injecting Cake... 🎂");
+  await typeLine("> Launching Celebration... 🚀");
+
+  await typeLine("");
+  await typeLine("🎉 HAPPY BIRTHDAY 🎉", 100);
+  await typeLine("You are the main function of your life 💻");
+  await typeLine("Keep upgrading yourself every year 🚀");
+
+  startConfetti();
+  document.getElementById("music").play();
+}
+
+function startConfetti() {
+  for (let i = 0; i < 100; i++) {
+    let confetti = document.createElement("div");
+    confetti.style.position = "fixed";
+    confetti.style.width = "5px";
+    confetti.style.height = "5px";
+    confetti.style.background = "hsl(" + Math.random()*360 + ",100%,50%)";
+    confetti.style.top = "-10px";
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.opacity = Math.random();
+
+    document.body.appendChild(confetti);
+
+    let fall = setInterval(() => {
+      confetti.style.top = parseInt(confetti.style.top) + 5 + "px";
+      if (parseInt(confetti.style.top) > window.innerHeight) {
+        clearInterval(fall);
+        confetti.remove();
+      }
+    }, 20);
+  }
+}
+</script>
+
+</body>
+</html>
